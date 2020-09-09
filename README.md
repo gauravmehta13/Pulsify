@@ -1,4 +1,4 @@
-# HRM
+# Pulsify
 
 A new Flutter project.
 
