@@ -53,24 +53,36 @@ class _HomepageState extends State<Homepage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Color(0xFF3c3c44),
+        title: Text(
+          'Pulsify',
+          style: TextStyle(
+              fontFamily: 'Montserrat', fontSize: 25, color: Colors.white),
+        ),
+      ),
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-                flex: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: EdgeInsets.all(12),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(18),
-                          ),
+      body: Container(
+        color: Color(0xFF3c3c44),
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: SafeArea(
+          child: Column(
+            children: <Widget>[
+              Spacer(),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 250,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Spacer(),
+                      Container(
+                        height: 225,
+                        width: (MediaQuery.of(context).size.width / 2) - 30,
+                        child: Card(
+                          elevation: 2,
                           child: Stack(
                             fit: StackFit.expand,
                             alignment: Alignment.center,
@@ -84,7 +96,7 @@ class _HomepageState extends State<Homepage>
                                   : Container(
                                       padding: EdgeInsets.all(12),
                                       alignment: Alignment.center,
-                                      color: Colors.grey,
+                                      color: Color(0xFF4a4854),
                                     ),
                               Container(
                                 alignment: Alignment.center,
@@ -94,9 +106,10 @@ class _HomepageState extends State<Homepage>
                                       ? "Cover both the camera and the flash with your finger"
                                       : "Camera feed will display here",
                                   style: TextStyle(
-                                      backgroundColor: _toggled
-                                          ? Colors.white
-                                          : Colors.transparent),
+                                    fontFamily: 'Montserrat',
+                                    color:
+                                        _toggled ? Colors.white : Colors.white,
+                                  ),
                                   textAlign: TextAlign.center,
                                 ),
                               )
@@ -104,35 +117,68 @@ class _HomepageState extends State<Homepage>
                           ),
                         ),
                       ),
-                    ),
+                      Spacer(),
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    Expanded(
-                      flex: 1,
-                      child: Center(
-                          child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Estimated BPM",
-                            style: TextStyle(fontSize: 18, color: Colors.grey),
-                          ),
-                          Text(
-                            (_bpm > 30 && _bpm < 150 ? _bpm.toString() : "--"),
-                            style: TextStyle(
-                                fontSize: 32, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      )),
-                    ),
-                  ],
-                )),
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                      Container(
+                          height: 225,
+                          width: (MediaQuery.of(context).size.width / 2) - 30,
+                          child: Card(
+                            color: Color(0xFF4a4854),
+                            elevation: 2,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Spacer(),
+                                Text(
+                                  "Estimated Cardiac\nOutput",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 18,
+                                      color: Colors.white),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      (_bpm > 30 && _bpm < 150
+                                          ? (_bpm * 70).toString()
+                                          : "--"),
+                                      style: TextStyle(
+                                          color: Color(0xFFff0000),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      'ml',
+                                      style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                                Spacer()
+                              ],
+                            ),
+                          )),
+                      Spacer(),
+                    ],
+                  )),
+              ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+              Spacer(),
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            Expanded(
-              flex: 1,
-              child: Container(
+              Container(
+                height: 200,
                 margin: EdgeInsets.all(12),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
@@ -141,38 +187,76 @@ class _HomepageState extends State<Homepage>
                     color: Colors.black),
                 child: Chart(_data),
               ),
-            ),
-            //////////////////////////////////////////////////////////////////////
-            Expanded(
-              flex: 1,
-              child: Center(
+
+              //////////////////////////////////////////////////////////////////////
+
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                height: 100,
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.favorite,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'HEART RATE',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Montserrat',
+                          fontSize: 25,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    Spacer(),
+                    Text(
+                      _bpm > 30 && _bpm < 150 ? _bpm.toString() : "- -",
+                      style: TextStyle(
+                          color: Color(0xFFff0000),
+                          fontFamily: 'Montserrat',
+                          fontSize: 55,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'BPM',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontFamily: 'Montserrat',
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+              ),
+              Spacer(),
+              //////////////////////////////////////////////////////////////////////
+              Container(
+                height: 150,
+                alignment: Alignment.center,
                 child: Transform.scale(
                   scale: _iconScale,
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: new BoxDecoration(
-                      color: Colors.redAccent.withOpacity(0.5),
-                      shape: BoxShape.circle,
-                    ),
-                    child: IconButton(
-                      icon: Icon(
-                          _toggled ? Icons.favorite : Icons.favorite_border),
-                      color: Colors.red,
-                      iconSize: 60,
-                      onPressed: () {
-                        if (_toggled) {
-                          _untoggle();
-                        } else {
-                          _toggle();
-                        }
-                      },
-                    ),
+                  child: IconButton(
+                    icon:
+                        Icon(_toggled ? Icons.favorite : Icons.favorite_border),
+                    color: Color(0xFFff0000),
+                    iconSize: 80,
+                    onPressed: () {
+                      if (_toggled) {
+                        _untoggle();
+                      } else {
+                        _toggle();
+                      }
+                    },
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
